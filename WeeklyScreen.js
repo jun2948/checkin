@@ -1,23 +1,11 @@
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
-import {
-    Constants
-} from 'expo';
-import {
-    createStore
-} from 'redux';
-import {
-    Provider
-} from 'react-redux';
+import {StyleSheet,Text,View } from 'react-native';
+import { Constants } from 'expo';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 class WeeklyScreen extends React.Component {
-    static navigationOptions = ({
-        navigation
-    }) => {
+    static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: 'Weekly',
         }
@@ -31,13 +19,12 @@ class WeeklyScreen extends React.Component {
     }
 
     render() {
-        return ( <
-            View >
-            <
-            Text > Hi < /Text> <
-            /View>
+        return (
+            <View>
+                <Text>Hello</Text>
+            </View>
         );
     }
-}
+} 
 
 export default WeeklyScreen
