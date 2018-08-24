@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TextInput } from 'react-native';
 // import { Constants } from 'expo';
 // import { createStore } from 'redux';
 // import { Provider } from 'react-redux';
@@ -48,16 +48,27 @@ class DailyScreen extends React.Component {
       });
   }
 
+  searchCity = key => val => {
+    this.setState({ [key]: val});
+  };
+
   render() {
     console.log(`city: ${this.state.city}`);
     return (
       <View style={styles.container}>
-        <Text style={styles.weatherCondition}>{this.state.dataSource.name}</Text>
+        <TextInput 
+          style={styles.input}
+          value={this.state.city}
+          onChangeText={this.searchCity('city')}
+          placeholder="search city"
+        />
+        <Text style={styles.cityName}>{this.state.dataSource.name}</Text>
         <Image 
           style={styles.weatherIcon}
           source={{ uri: IMAGE_PATH }}
           />
-        <Text style={styles.temp}>{this.state.data.temp}゜</Text>
+        <Text style={styles.temp}>{this.state.data.temp}&#8451;</Text>
+        <Text style={styles.description}>{this.state.weather.main}</Text>
       </View>
     );
   }
@@ -69,17 +80,31 @@ const styles = StyleSheet.create ({
     alignItems: 'center',
     backgroundColor: '#f7b733',
   },
-  weatherCondition: {
-    fontSize: 40,
-    paddingTop: 10,
+  input: {
+    borderWidth: 1,
+    backgroundColor: 'white',
+    minWidth: 200,
+    marginTop: 40,
+    marginHorizontal: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 3,
+  },
+  cityName: {
+    fontSize: 50,
+    paddingTop: 40,
     color: '#fff'
   },
   weatherIcon: {
-    width: 100,
-    height: 100
+    width: 150,
+    height: 150
   },
   temp: {
-    fontSize: 30,
+    fontSize: 50,
+    color: '#fff'
+  },
+  description: {
+    fontSize: 50,
     color: '#fff'
   }
 });
