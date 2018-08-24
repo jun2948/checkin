@@ -5,8 +5,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-import DailyScreen from './DailyScreen';
-import WeeklyScreen from './WeeklyScreen';
+import DailyScreen from './screen/DailyScreen';
+import WeeklyScreen from './screen/WeeklyScreen';
 
 const AppNavigator = createStackNavigator(
   {
@@ -20,20 +20,10 @@ const AppNavigator = createStackNavigator(
 
 export default class App extends React.Component {
 
-  state = {
-    city: '',
-  }
-
-  showDetails = city => {
-    this.setState(
-      {city}
-    )
-  }
-
   render() {
     return (
       <Provider store={store}>
-        <AppNavigator screenProps={{showDetails: this.showDetails, getItem: this.state.city}}/>
+        <AppNavigator />
       </Provider>
     );
   }
