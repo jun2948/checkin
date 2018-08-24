@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Image, TextInput } from 'react-native';
-// import { Constants } from 'expo';
-// import { createStore } from 'redux';
-// import { Provider } from 'react-redux';
+import { Constants } from 'expo';
+import { connect } from 'react-redux';
 
 // const IMAGE_PATH = `http://api.openweathermap.org/img/w/01d.png`;
 const IMAGE_PATH = `http://api.openweathermap.org/img/w/`;
 
 class DailyScreen extends React.Component {
+
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Daily',
     headerRight: (
