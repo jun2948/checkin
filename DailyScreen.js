@@ -4,7 +4,8 @@ import { StyleSheet, Text, View, Button, Image, TextInput } from 'react-native';
 // import { createStore } from 'redux';
 // import { Provider } from 'react-redux';
 
-const IMAGE_PATH = `http://api.openweathermap.org/img/w/10d.png`;
+// const IMAGE_PATH = `http://api.openweathermap.org/img/w/01d.png`;
+const IMAGE_PATH = `http://api.openweathermap.org/img/w/`;
 
 class DailyScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -24,7 +25,7 @@ class DailyScreen extends React.Component {
       dataSource: [],
       data: [],
       weather: [],
-      city: ''
+      city: '',
     };
   }
 
@@ -40,7 +41,7 @@ class DailyScreen extends React.Component {
         this.setState({
           dataSource: responseJson,
           data: responseJson.main,
-          weather: responseJson.weather[0]
+          weather: responseJson.weather[0],
         });
       })
       .catch(error => {
@@ -49,24 +50,21 @@ class DailyScreen extends React.Component {
   }
 
   searchCity = key => val => {
-    this.setState({ [key]: val});
+    this.setState({ [key]: val });
   };
 
   render() {
     console.log(`city: ${this.state.city}`);
     return (
       <View style={styles.container}>
-        <TextInput 
+        <TextInput
           style={styles.input}
           value={this.state.city}
           onChangeText={this.searchCity('city')}
           placeholder="search city"
         />
         <Text style={styles.cityName}>{this.state.dataSource.name}</Text>
-        <Image 
-          style={styles.weatherIcon}
-          source={{ uri: IMAGE_PATH }}
-          />
+        <Image style={styles.weatherIcon} source={{ uri: IMAGE_PATH + this.state.weather.icon +'.png'}} />
         <Text style={styles.temp}>{this.state.data.temp}&#8451;</Text>
         <Text style={styles.description}>{this.state.weather.main}</Text>
       </View>
@@ -74,7 +72,7 @@ class DailyScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -93,20 +91,20 @@ const styles = StyleSheet.create ({
   cityName: {
     fontSize: 50,
     paddingTop: 40,
-    color: '#fff'
+    color: '#fff',
   },
   weatherIcon: {
     width: 150,
-    height: 150
+    height: 150,
   },
   temp: {
-    fontSize: 50,
-    color: '#fff'
+    fontSize: 40,
+    color: '#fff',
   },
   description: {
     fontSize: 50,
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 });
 
 export default DailyScreen;

@@ -1,8 +1,10 @@
 import React from 'react';
-import {StyleSheet,Text,View, FlatList} from 'react-native';
+import {StyleSheet,Text,View, FlatList, Image} from 'react-native';
 import { Constants } from 'expo';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
+const IMAGE_PATH = 'http://api.openweathermap.org/img/w/';
 
 class WeeklyScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -15,7 +17,8 @@ class WeeklyScreen extends React.Component {
     super(props);
     this.state = {
         dataSource: [],
-        data: []
+        data: [],
+        // iconId: this.state.weather[0].icon
     };
   }
     // fetch OpenWeatherMap API
@@ -33,12 +36,18 @@ class WeeklyScreen extends React.Component {
     });
   }
 
-  renderItem = ({index}) => {
+  renderItem = ({index, item}) => {
     return (
       <View style={styles.weatherList}>
-        <Text>{this.state.data[index].dt_txt}</Text>
-        <Text>{this.state.data[index].main.temp}&#8451;</Text>
-        <Text>{this.state.data[index].weather[0].description}</Text>
+        <Text style={styles.days}>{this.state.data[index].dt_txt}</Text>
+        <Text style={styles.temp}>{this.state.data[index].main.temp}&#8451;</Text>
+        <Image 
+          style={styles.weatherIcon}
+          source={{uri: IMAGE_PATH + this.state.data[index].weather[0].icon + '.png'}}
+        />
+        <Text style={styles.description}>
+          {this.state.data[index].weather[0].description}
+        </Text>
       </View>
     );
   };
@@ -48,10 +57,12 @@ class WeeklyScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.cityName}>{this.state.dataSource.name}</Text>
-        <FlatList  
-          data={this.state.data} 
-          renderItem={this.renderItem}
-        />
+        <View style={styles.listStyle}>
+          <FlatList  
+            data={this.state.data} 
+            renderItem={this.renderItem}
+          />
+        </View>
       </View>
     );
   }
@@ -61,6 +72,7 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     alignItems: 'center',
+    flexDirection: 'column',
     backgroundColor: '#f7b733',
   },
   cityName: {
@@ -68,7 +80,25 @@ const styles = StyleSheet.create ({
     color: '#fff'
   },
   weatherList: {
+    width: 300,
+    alignItems: 'center',
+    borderWidth: 1,
+    margin: 10,
+    flexDirection: 'colum',
     backgroundColor: '#fff',
+   },
+   days: {
+     fontSize: 20
+   },
+   temp: {
+     fontSize: 20
+   },
+   description: {
+     fontSize: 20
+   },
+   weatherIcon: {
+     width: 50,
+     height: 50
    }
  });
 
